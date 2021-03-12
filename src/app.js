@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import express from 'express';
 import dotenv from 'dotenv';
 
-import { router as proxyRouter } from './proxy.js';
+import { proxyRouter } from './proxy.js';
 
 dotenv.config();
 
@@ -16,10 +16,27 @@ const app = express();
 const path = dirname(fileURLToPath(import.meta.url));
 
 app.use(express.static(join(path, '../public')));
+app.use(express.static(join(path, '../node_modules/leaflet/dist')));
+
+app.set('view engine', 'ejs');
+app.set('views', join(path, '../views'));
 
 // TODO setja upp proxy þjónustu
 // TODO birta index.html skjal
+app.get('/', (req, res) => {
+  res.sendFile('index.html', {
+    root: join(path, '..'),
+  });
+});
 
+function enableCORS(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Acces-Control-Allow-Methods', 'GET');
+  next();
+}
+
+app.use(enableCORS);
+app.use(proxyRouter);
 /**
  * Middleware sem sér um 404 villur.
  *

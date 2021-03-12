@@ -14,7 +14,12 @@ module.exports = {
 
     // Skilgreinum að þetta sé rótin í verkefninu okkar, þar sem það er annað
     // package.json skjal í ./src
-    'import/no-extraneous-dependencies': ['error', { packageDir: './' }],
+    // 'import/no-extraneous-dependencies': ['error', { packageDir: './' }],
+
+    // disablea þetta alveg þar sem VSCode extension fyrir eslint kvartar
+    // sama hvað ég geri
+    'import/no-extraneous-dependencies': 0,
+    'import/no-unresolved': 0,
 
     // Leyfum console.info, warn og error
     'no-console': ['error', { allow: ['info', 'warn', 'error'] }],

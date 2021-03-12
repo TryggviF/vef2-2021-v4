@@ -11,7 +11,7 @@
     "dev": "concurrently npm:nodemon npm:browser-sync npm:rollup-watch",
     "start": "node ./src/app.js",
     "build": "concurrently npm:rollup",
-    "test": "eslint *.js **/*.js"
+    "test": "eslint *.js ./src/*.js ./client/**/*.js"
   },
   "keywords": [],
   "author": "",
